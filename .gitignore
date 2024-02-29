@@ -197,3 +197,7 @@ pyrightconfig.json
 
 # Project Specific 
 config.json
+
+# For testing purposes
+test.json
+test.py
