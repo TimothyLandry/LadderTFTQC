@@ -201,3 +201,5 @@ config.json
 # For testing purposes
 test.json
 test.py
+data.json
+raw.json
