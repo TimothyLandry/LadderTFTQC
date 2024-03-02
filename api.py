@@ -47,3 +47,4 @@ class Api:
         for m in matchIds:
             matches.append(self.getMatch(m))
             sleep(1)
+        return matches
