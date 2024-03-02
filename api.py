@@ -26,7 +26,8 @@ class Api:
     def getSummonerPuuid(self, summonerName):
         return (self.abstractApiCall("na1",f"tft/summoner/v1/summoners/by-name/{summonerName}", None))["puuid"]
     
-    def getSummonerProfile(self, summonerId):
+    def getSummonerProfile(self, summonerName):
+        summonerId = self.getSummonerId(summonerName)
         return self.abstractApiCall("na1",f"tft/league/v1/entries/by-summoner/{summonerId}", None)
     
     def getMatchIds(self, puuid):
