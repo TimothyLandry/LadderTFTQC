@@ -46,5 +46,5 @@ class Api:
         matches = []
         for m in matchIds:
             matches.append(self.getMatch(m))
-            sleep(1)
+            sleep(1.3)
         return matches
