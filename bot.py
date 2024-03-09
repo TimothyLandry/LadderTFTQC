@@ -24,7 +24,6 @@ async def on_ready():
     await channel.send(logo)
     cron_leaderboard.start()
 
-
 @tasks.loop(hours=1)
 async def cron_leaderboard():
     print('Starting cron_leaderboard')
