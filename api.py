@@ -4,16 +4,14 @@ from time import sleep
 
 class Api:
     def __init__(self, startTime):
-        # API Key
         f = open("./config.json")
         apiKey = json.load(f)["riotApiKey"]
-        # Headers
+
         self.headers =   {
             "Accept-Language": "en,en-US;q=0.5",
             "Accept-Charset": "application/x-www-form-urlencoded; charset=UTF-8",
             "X-Riot-Token": f"{apiKey}"
         }
-
         self.startTime = startTime
 
     def abstractApiCall(self, region, endpoint, params):
