@@ -6,7 +6,7 @@ class Api:
     def __init__(self, startTime):
         # API Key
         f = open("./config.json")
-        apiKey = json.load(f)["apiKey"]
+        apiKey = json.load(f)["riotApiKey"]
         # Headers
         self.headers =   {
             "Accept-Language": "en,en-US;q=0.5",
@@ -46,5 +46,6 @@ class Api:
         matches = []
         for m in matchIds:
             matches.append(self.getMatch(m))
+            # 100calls/2min workaround
             sleep(1.3)
         return matches
