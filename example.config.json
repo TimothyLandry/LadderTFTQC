@@ -1,6 +1,6 @@
 {
     "apiKey": "",
-    "channelId": "",
+    "channelId": 0,
     "discordToken": "",
     "version": ""
 }
