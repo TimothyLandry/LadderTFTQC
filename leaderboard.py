@@ -1,32 +1,95 @@
 from api import Api
 from stats import Stats
-import json
+import time
 
-def getLeaderboardOutput():
-    api = Api(1709445434) 
-    #summonerNames = ["davidas", "sadivad", "hanneko", "chekko", "shawinigan", "geehess"]
-    summonerNames = ["shawinigan"]
+def getProfiles():
+    playerList = ["davidas", "sadivad", "hanneko", "chekko", "shawinigan", "geehess", "sadivad", "hanneko", "chekko", "shawinigan", "geehess", "sadivad", "hanneko", "chekko", "shawinigan", "geehess", "sadivad", "hanneko", "chekko", "shawinigan", "geehess", "sadivad", "hanneko", "chekko", "shawinigan", "geehess", "sadivad", "hanneko", "chekko", "shawinigan", "geehess", "sadivad", "hanneko", "chekko", "shawinigan", "geehess", "sadivad", "hanneko", "chekko", "shawinigan", "geehess", "sadivad", "hanneko", "chekko", "shawinigan", "geehess", "sadivad", "hanneko", "chekko", "shawinigan", "geehess"]
+    startEpoch = 1709445434
+    api = Api(startEpoch) 
     output=[]
-    for summonerName in summonerNames:
-        print(summonerName)
+    for name in playerList:
+        print(f"{time.strftime('%Y-%m-%d %H:%M:%S')} - getMatches() {name}")
 
-        matches = api.getMatches(summonerName)
-        puuid = api.getSummonerPuuid(summonerName)
+        matches = api.getMatches(name)
+        puuid = api.getSummonerPuuid(name)
 
         stats = Stats(puuid, matches)
         data = stats.getPlayerData()
 
-        profile = api.getSummonerProfile(summonerName)
-        print(profile)
+        profile = api.getSummonerProfile(name)
         jsonProfile = {
-            "profile": profile,
-            "name": summonerName,
-            "rank": f"{profile[0]['tier']} {profile[0]['rank']} {profile[0]['leaguePoints']} lp",
+            "name": name,
+            "tier": profile[0]['tier'],
+            "rank": profile[0]['rank'], 
+            "leaguePoints": profile[0]['leaguePoints'],
             "recombobulator": stats.countRecombobulator(data),
             "threeStars": stats.countThreeStarUnits(data),
             "featherknight": stats.countGamesAsFeatherknight(data)
         }
         output.append(jsonProfile)
+    return output
 
-    raw = json.dumps(output, indent=3)
-    return raw
+def getFeatherknightLeaderboard(jsonProfiles):
+    sortedProfiles = sortByFeatherknight(jsonProfiles)
+    leaderboard = "Ladder de games en tant que Pengu:"
+    for p in sortedProfiles:
+        if(p["featherknight"] >0):
+            leaderboard += f"\n{p['name']} - {p['featherknight']} games"
+
+    if(leaderboard == "Ladder de games en tant que Pengu:"):
+        leaderboard += "\nNone...\nPengu va pleurer ce soir se couchant...\n"
+    return leaderboard
+
+def getRankLeaderboard(jsonProfiles):
+    sortedProfiles = sortByRank(jsonProfiles)
+    leaderboard = "Ladder (rank):"
+    for p in sortedProfiles:
+        leaderboard += f"\n{p['name']} - {p['tier']} {p['rank']} {p['leaguePoints']} lp"
+        
+    if(leaderboard == "Ladder (rank):"):
+        leaderboard += "\nNone...\nPersonne aime le set11...\n"
+    return leaderboard
+
+def getRecombobulatorLeaderboard(jsonProfiles):
+    sortedProfiles = sortByRecombobulator(jsonProfiles)
+    leaderboard = "Ladder des gigachads:"
+    for p in sortedProfiles:
+        if(p["recombobulator"]>0):
+            leaderboard += f"\n{p['name']} - {p['recombobulator']} recombobulator(s)"
+
+    if(leaderboard == "Ladder des gigachads:"):
+        leaderboard += "\nNone...\nChekko est pas fier...\n"
+    return leaderboard
+
+def getThreeStarsLeaderboard(jsonProfiles):
+    sortedProfiles = sortByThreeStars(jsonProfiles)
+    leaderboard = "Ladder des rerollers:"
+    for p in sortedProfiles:
+        if(p["threeStars"]>0):
+            leaderboard += f"\n{p['name']} - {p['threeStars']} three stars units"
+
+    if(leaderboard == "Ladder des rerollers:"):
+        leaderboard += "\nNone...\nAppuyez dont sur D siboire...\n"
+    return leaderboard
+
+def sortByFeatherknight(jsonProfiles):
+    sortedProfiles = sorted(jsonProfiles, key=lambda k: k['featherknight'],reverse=True)
+    return sortedProfiles
+
+def sortByRank(jsonProfiles):
+    jsonProfiles = sorted(jsonProfiles, key=lambda k: k['leaguePoints'],reverse=True)
+    sortedProfiles= []
+    for tier in ["CHALLENGER", "GRANDMASTER", "MASTER", "DIAMOND", "EMERALD", "PLATINUM", "GOLD", "SILVER", "BRONZE", "IRON"]:
+        for rank in ["I", "II", "III", "IV"]:
+            for profile in jsonProfiles:
+                if(profile['tier'] == tier and profile['rank'] == rank):
+                    sortedProfiles.append(profile)
+    return sortedProfiles
+
+def sortByRecombobulator(jsonProfiles):
+    sortedProfiles = sorted(jsonProfiles, key=lambda k: k['recombobulator'],reverse=True)
+    return sortedProfiles
+
+def sortByThreeStars(jsonProfiles):
+    sortedProfiles = sorted(jsonProfiles, key=lambda k: k['threeStars'],reverse=True)
+    return sortedProfiles
