@@ -4,7 +4,7 @@ import json
 import time
 import asyncio
 
-from leaderboard import getLeaderboardOutput
+from leaderboard import *
 
 config = json.load(open("./config.json"))
 
@@ -23,12 +23,15 @@ async def on_ready():
     cronLeaderboard.start()
     print(f"{time.strftime('%Y-%m-%d %H:%M:%S')} - Connected on {client.user}")
 
-@tasks.loop(hours=1)
+@tasks.loop(hours=6)
 async def cronLeaderboard():
     print(f"{time.strftime('%Y-%m-%d %H:%M:%S')} - cronLeaderboard start")
     channel = client.get_channel(config["channelId"])
 
-    output = await asyncio.to_thread(getLeaderboardOutput)
-    await channel.send(output)
+    profiles = await asyncio.to_thread(getProfiles)
+    await channel.send(f"```fix\n{time.strftime('%Y-%m-%d %H:%M:%S')} - {getRankLeaderboard(profiles)}```")
+    await channel.send(f"```fix\n{time.strftime('%Y-%m-%d %H:%M:%S')} - {getThreeStarsLeaderboard(profiles)}```")
+    await channel.send(f"```fix\n{time.strftime('%Y-%m-%d %H:%M:%S')} - {getRecombobulatorLeaderboard(profiles)}```")
+    await channel.send(f"```fix\n{time.strftime('%Y-%m-%d %H:%M:%S')} - {getFeatherknightLeaderboard(profiles)}```")
 
 client.run(config["discordToken"])
