@@ -12,11 +12,12 @@ def getProfiles():
     startEpoch = 1700560800 # Tue Nov 21 2023 10:00:00 GMT+0000
     api = Api(startEpoch) 
     output=[]
-    for name in playerList:
+    for fullTag in playerList:
+        name,tag = fullTag.split('#')
         print(f"{time.strftime('%Y-%m-%d %H:%M:%S')} - getMatches() {name}")
 
-        matches = api.getMatches(name)
-        puuid = api.getSummonerPuuid(name)
+        matches = api.getMatches(name, tag)
+        puuid = api.getSummonerPuuid(name, tag)
 
         stats = Stats(puuid, matches)
         data = stats.getPlayerData()

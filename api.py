@@ -21,8 +21,8 @@ class Api:
     def getSummonerId(self, summonerName):
         return (self.abstractApiCall("na1", f"tft/summoner/v1/summoners/by-name/{summonerName}", None))["id"]
     
-    def getSummonerPuuid(self, summonerName):
-        return (self.abstractApiCall("na1",f"tft/summoner/v1/summoners/by-name/{summonerName}", None))["puuid"]
+    def getSummonerPuuid(self, name, tag):
+        return (self.abstractApiCall("americas",f"riot/account/v1/accounts/by-riot-id/{name}/{tag}", None))["puuid"]
     
     def getSummonerProfile(self, summonerName):
         summonerId = self.getSummonerId(summonerName)
@@ -38,8 +38,8 @@ class Api:
     def getMatch(self, id):
         return self.abstractApiCall("americas",f"tft/match/v1/matches/{id}", None)
     
-    def getMatches(self, name):
-        puuid = self.getSummonerPuuid(name)
+    def getMatches(self, name, tag):
+        puuid = self.getSummonerPuuid(name, tag)
         matchIds = self.getMatchIds(puuid)
         matches = []
         for m in matchIds:
