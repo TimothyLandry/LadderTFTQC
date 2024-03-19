@@ -17,22 +17,23 @@ def getProfiles():
         print(f"{time.strftime('%Y-%m-%d %H:%M:%S')} - getMatches() {name}")
 
         matches = api.getMatches(name, tag)
-        puuid = api.getSummonerPuuid(name, tag)
+        if(len(matches)>0):
+            puuid = api.getSummonerPuuid(name, tag)
 
-        stats = Stats(puuid, matches)
-        data = stats.getPlayerData()
+            stats = Stats(puuid, matches)
+            data = stats.getPlayerData()
 
-        profile = api.getSummonerProfile(name)
-        jsonProfile = {
-            "name": name,
-            "tier": profile[0]['tier'],
-            "rank": profile[0]['rank'], 
-            "leaguePoints": profile[0]['leaguePoints'],
-            "recombobulator": stats.countRecombobulator(data),
-            "threeStars": stats.countThreeStarUnits(data),
-            "featherknight": stats.countGamesAsFeatherknight(data)
-        }
-        output.append(jsonProfile)
+            profile = api.getSummonerProfile(name)
+            jsonProfile = {
+                "name": name,
+                "tier": profile[0]['tier'],
+                "rank": profile[0]['rank'], 
+                "leaguePoints": profile[0]['leaguePoints'],
+                "recombobulator": stats.countRecombobulator(data),
+                "threeStars": stats.countThreeStarUnits(data),
+                "featherknight": stats.countGamesAsFeatherknight(data)
+            }
+            output.append(jsonProfile)
     return output
 
 def getFeatherknightLeaderboard(jsonProfiles):
