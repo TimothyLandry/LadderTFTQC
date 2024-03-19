@@ -23,7 +23,7 @@ def getProfiles():
             stats = Stats(puuid, matches)
             data = stats.getPlayerData()
 
-            profile = api.getSummonerProfile(name)
+            profile = api.getSummonerProfile(puuid)
             jsonProfile = {
                 "name": name,
                 "tier": profile[0]['tier'],

@@ -18,14 +18,14 @@ class Api:
         url = f"https://{region}.api.riotgames.com/"
         return requests.get(f"{url}{endpoint}", headers=self.headers, params=params).json()
 
-    def getSummonerId(self, summonerName):
-        return (self.abstractApiCall("na1", f"tft/summoner/v1/summoners/by-name/{summonerName}", None))["id"]
+    def getSummonerId(self, puuid):
+        return (self.abstractApiCall("na1", f"tft/summoner/v1/summoners/by-puuid/{puuid}", None))["id"]
     
     def getSummonerPuuid(self, name, tag):
         return (self.abstractApiCall("americas",f"riot/account/v1/accounts/by-riot-id/{name}/{tag}", None))["puuid"]
     
-    def getSummonerProfile(self, summonerName):
-        summonerId = self.getSummonerId(summonerName)
+    def getSummonerProfile(self, puuid):
+        summonerId = self.getSummonerId(puuid)
         return self.abstractApiCall("na1",f"tft/league/v1/entries/by-summoner/{summonerId}", None)
     
     def getMatchIds(self, puuid):
