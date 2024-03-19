@@ -7,7 +7,7 @@ def getProfiles():
         playerList = []
         for p in file:
             p = p.replace('\n','')
-            list.append(p)
+            playerList.append(p)
 
     startEpoch = 1700560800 # Tue Nov 21 2023 10:00:00 GMT+0000
     api = Api(startEpoch) 
