@@ -3,8 +3,13 @@ from stats import Stats
 import time
 
 def getProfiles():
-    playerList = ["davidas", "sadivad", "hanneko", "chekko", "shawinigan", "geehess", "sadivad", "hanneko", "chekko", "shawinigan", "geehess", "sadivad", "hanneko", "chekko", "shawinigan", "geehess", "sadivad", "hanneko", "chekko", "shawinigan", "geehess", "sadivad", "hanneko", "chekko", "shawinigan", "geehess", "sadivad", "hanneko", "chekko", "shawinigan", "geehess", "sadivad", "hanneko", "chekko", "shawinigan", "geehess", "sadivad", "hanneko", "chekko", "shawinigan", "geehess", "sadivad", "hanneko", "chekko", "shawinigan", "geehess", "sadivad", "hanneko", "chekko", "shawinigan", "geehess"]
-    startEpoch = 1709445434
+    with open("players.txt", "r") as file:
+        playerList = []
+        for p in file:
+            p = p.replace('\n','')
+            list.append(p)
+
+    startEpoch = 1700560800 # Tue Nov 21 2023 10:00:00 GMT+0000
     api = Api(startEpoch) 
     output=[]
     for name in playerList:
