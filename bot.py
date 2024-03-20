@@ -23,7 +23,7 @@ async def on_ready():
     cronLeaderboard.start()
     print(f"{time.strftime('%Y-%m-%d %H:%M:%S')} - Connected on {client.user}")
 
-@tasks.loop(hours=6)
+@tasks.loop(hours=8)
 async def cronLeaderboard():
     print(f"{time.strftime('%Y-%m-%d %H:%M:%S')} - cronLeaderboard start")
     channel = client.get_channel(config["channelId"])
@@ -33,5 +33,6 @@ async def cronLeaderboard():
     await channel.send(f"```fix\n{time.strftime('%Y-%m-%d %H:%M:%S')} - {getThreeStarsLeaderboard(profiles)}```")
     await channel.send(f"```fix\n{time.strftime('%Y-%m-%d %H:%M:%S')} - {getRecombobulatorLeaderboard(profiles)}```")
     await channel.send(f"```fix\n{time.strftime('%Y-%m-%d %H:%M:%S')} - {getFeatherknightLeaderboard(profiles)}```")
+    print(f"{time.strftime('%Y-%m-%d %H:%M:%S')} update sent.")
 
 client.run(config["discordToken"])
