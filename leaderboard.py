@@ -24,16 +24,18 @@ def getProfiles():
             data = stats.getPlayerData()
 
             profile = api.getSummonerProfile(puuid)
-            jsonProfile = {
-                "name": name,
-                "tier": profile[0]['tier'],
-                "rank": profile[0]['rank'], 
-                "leaguePoints": profile[0]['leaguePoints'],
-                "recombobulator": stats.countRecombobulator(data),
-                "threeStars": stats.countThreeStarUnits(data),
-                "featherknight": stats.countGamesAsFeatherknight(data)
-            }
-            output.append(jsonProfile)
+            
+            if(len(profile)>0):
+                jsonProfile = {
+                    "name": name,
+                    "tier": profile[0]['tier'],
+                    "rank": profile[0]['rank'], 
+                    "leaguePoints": profile[0]['leaguePoints'],
+                    "recombobulator": stats.countRecombobulator(data),
+                    "threeStars": stats.countThreeStarUnits(data),
+                    "featherknight": stats.countGamesAsFeatherknight(data)
+                }
+                output.append(jsonProfile)
     return output
 
 def getFeatherknightLeaderboard(jsonProfiles):
