@@ -23,7 +23,7 @@ async def on_ready():
     cronLeaderboard.start()
     print(f"{time.strftime('%Y-%m-%d %H:%M:%S')} - Connected on {client.user}")
 
-@tasks.loop(hours=8)
+@tasks.loop(hours=6)
 async def cronLeaderboard():
     print(f"{time.strftime('%Y-%m-%d %H:%M:%S')} - cronLeaderboard start")
     channel = client.get_channel(config["channelId"])
