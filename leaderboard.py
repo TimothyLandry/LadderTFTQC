@@ -9,7 +9,7 @@ def getProfiles():
             p = p.replace('\n','')
             playerList.append(p)
 
-    startEpoch = 1700560800 # Tue Nov 21 2023 10:00:00 GMT+0000
+    startEpoch = 1710932400 # Wed Mar 20 2024 11:00:00 GMT+0000
     api = Api(startEpoch) 
     output=[]
     for fullTag in playerList:
