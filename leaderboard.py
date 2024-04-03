@@ -1,6 +1,7 @@
 from api import Api
 from stats import Stats
 import time
+import json
 
 def getProfiles():
     with open("players.txt", "r") as file:
@@ -9,9 +10,11 @@ def getProfiles():
             p = p.replace('\n','')
             playerList.append(p)
 
-    startEpoch = 1710932400 # Wed Mar 20 2024 11:00:00 GMT+0000
-    endEpoch = 1712142000 # Wed Apr 03 2024 11:00:00 GMT+0000
-    api = Api(startEpoch, endEpoch) 
+    config = json.load(open("./config.json"))
+    startTime = config["startTime"]
+    endTime = config["endTime"]
+    
+    api = Api(startTime, endTime) 
     output=[]
     for fullTag in playerList:
         name,tag = fullTag.split('#')

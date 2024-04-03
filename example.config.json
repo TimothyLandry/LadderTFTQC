@@ -2,5 +2,7 @@
     "apiKey": "",
     "channelId": 0,
     "discordToken": "",
-    "version": ""
+    "version": "",
+    "startTime": 0,
+    "endTime": 0
 }
