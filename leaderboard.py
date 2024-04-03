@@ -10,7 +10,8 @@ def getProfiles():
             playerList.append(p)
 
     startEpoch = 1710932400 # Wed Mar 20 2024 11:00:00 GMT+0000
-    api = Api(startEpoch) 
+    endEpoch = 1712142000 # Wed Apr 03 2024 11:00:00 GMT+0000
+    api = Api(startEpoch, endEpoch) 
     output=[]
     for fullTag in playerList:
         name,tag = fullTag.split('#')

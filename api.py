@@ -3,7 +3,7 @@ import json
 from time import sleep
 
 class Api:
-    def __init__(self, startTime):
+    def __init__(self, startTime, endTime):
         f = open("./config.json")
         apiKey = json.load(f)["riotApiKey"]
 
@@ -13,6 +13,7 @@ class Api:
             "X-Riot-Token": f"{apiKey}"
         }
         self.startTime = startTime
+        self.endTime = endTime
 
     def abstractApiCall(self, region, endpoint, params):
         url = f"https://{region}.api.riotgames.com/"
@@ -31,6 +32,7 @@ class Api:
     def getMatchIds(self, puuid):
         params = {
             "startTime": self.startTime,
+            "endTime": self.endTime,
             "count": 200
         }
         return self.abstractApiCall("americas",f"tft/match/v1/matches/by-puuid/{puuid}/ids", params)
