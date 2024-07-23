@@ -35,12 +35,16 @@ def getProfiles():
                     "tier": profile[0]['tier'],
                     "rank": profile[0]['rank'], 
                     "leaguePoints": profile[0]['leaguePoints'],
-                    "recombobulator": stats.countRecombobulator(data),
                     "threeStars": stats.countThreeStarUnits(data),
-                    "featherknight": stats.countGamesAsFeatherknight(data)
+                    "currentSetAugments": stats.countCurrentSetAugments(data)
                 }
                 output.append(jsonProfile)
     return output
+
+### Featherknight
+def sortByFeatherknight(jsonProfiles):
+    sortedProfiles = sorted(jsonProfiles, key=lambda k: k['featherknight'],reverse=True)
+    return sortedProfiles
 
 def getFeatherknightLeaderboard(jsonProfiles):
     sortedProfiles = sortByFeatherknight(jsonProfiles)
@@ -53,6 +57,17 @@ def getFeatherknightLeaderboard(jsonProfiles):
         leaderboard += "\nNone...\nPengu va pleurer ce soir se couchant...\n"
     return leaderboard
 
+### Rank
+def sortByRank(jsonProfiles):
+    jsonProfiles = sorted(jsonProfiles, key=lambda k: k['leaguePoints'],reverse=True)
+    sortedProfiles= []
+    for tier in ["CHALLENGER", "GRANDMASTER", "MASTER", "DIAMOND", "EMERALD", "PLATINUM", "GOLD", "SILVER", "BRONZE", "IRON"]:
+        for rank in ["I", "II", "III", "IV"]:
+            for profile in jsonProfiles:
+                if(profile['tier'] == tier and profile['rank'] == rank):
+                    sortedProfiles.append(profile)
+    return sortedProfiles
+
 def getRankLeaderboard(jsonProfiles):
     sortedProfiles = sortByRank(jsonProfiles)
     leaderboard = "Ladder (rank):"
@@ -62,6 +77,11 @@ def getRankLeaderboard(jsonProfiles):
     if(leaderboard == "Ladder (rank):"):
         leaderboard += "\nNone...\nPersonne aime le set11...\n"
     return leaderboard
+
+### Recombobulator
+def sortByRecombobulator(jsonProfiles):
+    sortedProfiles = sorted(jsonProfiles, key=lambda k: k['recombobulator'],reverse=True)
+    return sortedProfiles
 
 def getRecombobulatorLeaderboard(jsonProfiles):
     sortedProfiles = sortByRecombobulator(jsonProfiles)
@@ -74,6 +94,11 @@ def getRecombobulatorLeaderboard(jsonProfiles):
         leaderboard += "\nNone...\nChekko est pas fier...\n"
     return leaderboard
 
+### ThreeStars (rerollers)
+def sortByThreeStars(jsonProfiles):
+    sortedProfiles = sorted(jsonProfiles, key=lambda k: k['threeStars'],reverse=True)
+    return sortedProfiles
+
 def getThreeStarsLeaderboard(jsonProfiles):
     sortedProfiles = sortByThreeStars(jsonProfiles)
     leaderboard = "Ladder des rerollers:"
@@ -85,24 +110,22 @@ def getThreeStarsLeaderboard(jsonProfiles):
         leaderboard += "\nNone...\nAppuyez dont sur D siboire...\n"
     return leaderboard
 
-def sortByFeatherknight(jsonProfiles):
-    sortedProfiles = sorted(jsonProfiles, key=lambda k: k['featherknight'],reverse=True)
+### Current Set Augments
+def sortByCurrentSetAugments(jsonProfiles):
+    sortedProfiles = sorted(jsonProfiles, key=lambda k: k['currentSetAugments'],reverse=True)
     return sortedProfiles
 
-def sortByRank(jsonProfiles):
-    jsonProfiles = sorted(jsonProfiles, key=lambda k: k['leaguePoints'],reverse=True)
-    sortedProfiles= []
-    for tier in ["CHALLENGER", "GRANDMASTER", "MASTER", "DIAMOND", "EMERALD", "PLATINUM", "GOLD", "SILVER", "BRONZE", "IRON"]:
-        for rank in ["I", "II", "III", "IV"]:
-            for profile in jsonProfiles:
-                if(profile['tier'] == tier and profile['rank'] == rank):
-                    sortedProfiles.append(profile)
-    return sortedProfiles
+def getCurrentSetAugmentsLeaderboard(jsonProfiles):
+    sortedProfiles = sortByCurrentSetAugments(jsonProfiles)
+    leaderboard = "Ladder des visionnaires:"
 
-def sortByRecombobulator(jsonProfiles):
-    sortedProfiles = sorted(jsonProfiles, key=lambda k: k['recombobulator'],reverse=True)
-    return sortedProfiles
+    config = json.load(open("./config.json"))
+    currentSet = config["currentSet"]
 
-def sortByThreeStars(jsonProfiles):
-    sortedProfiles = sorted(jsonProfiles, key=lambda k: k['threeStars'],reverse=True)
-    return sortedProfiles
+    for p in sortedProfiles:
+        if(p["currentSetAugments"]>0):
+            leaderboard += f"\n{p['name']} - {p['currentSetAugments']} SET{currentSet} augment(s)"
+
+    if(leaderboard == "Ladder des visionnaires:"):
+        leaderboard += "\nNone...\nGuys, the future is now...\n"
+    return leaderboard
