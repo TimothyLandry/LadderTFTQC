@@ -1,7 +1,11 @@
+import json
+
 class Stats:
     def __init__(self, puuid, raw):
         self.puuid = puuid
         self.raw = raw
+        config = json.load(open("./config.json"))
+        self.currentSet = config["currentSet"]
 
     def getPlayerData(self):
         data = []
@@ -56,5 +60,12 @@ class Stats:
             for a in d["augments"]:
                 if(a not in picked):
                     picked.append(a)
-        #return len(picked)
         return picked
+    
+    def countCurrentSetAugments(self, data):
+        count = 0
+        for d in data:
+            for a in d["augments"]:
+                if(a.startswith("TFT"+self.currentSet)):
+                    count+=1
+        return count
