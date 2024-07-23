@@ -18,7 +18,7 @@ def getProfiles():
     output=[]
     for fullTag in playerList:
         name,tag = fullTag.split('#')
-        print(f"{time.strftime('%Y-%m-%d %H:%M:%S')} - getMatches() {name}")
+        print(f"{time.strftime('%Y-%m-%d %H:%M:%S')} - getMatches() {name}#{tag}")
 
         matches = api.getMatches(name, tag)
         if(len(matches)>0):
@@ -53,7 +53,7 @@ def getFeatherknightLeaderboard(jsonProfiles):
     leaderboard = "Ladder de games en tant que Pengu:"
     for p in sortedProfiles:
         if(p["featherknight"] >0):
-            leaderboard += f"\n{p['name']} - {p['featherknight']} games"
+            leaderboard += f"\n{p['name']}#{p['tag']} - {p['featherknight']} games"
 
     if(leaderboard == "Ladder de games en tant que Pengu:"):
         leaderboard += "\nNone...\nPengu va pleurer ce soir se couchant...\n"
@@ -74,7 +74,7 @@ def getRankLeaderboard(jsonProfiles):
     sortedProfiles = sortByRank(jsonProfiles)
     leaderboard = "Ladder (rank):"
     for p in sortedProfiles:
-        leaderboard += f"\n{p['name']} - {p['tier']} {p['rank']} {p['leaguePoints']} lp"
+        leaderboard += f"\n{p['name']}#{p['tag']} - {p['tier']} {p['rank']} {p['leaguePoints']} lp"
         
     if(leaderboard == "Ladder (rank):"):
         leaderboard += "\nNone...\nPersonne aime le set11...\n"
@@ -90,7 +90,7 @@ def getRecombobulatorLeaderboard(jsonProfiles):
     leaderboard = "Ladder des gigachads:"
     for p in sortedProfiles:
         if(p["recombobulator"]>0):
-            leaderboard += f"\n{p['name']} - {p['recombobulator']} recombobulator(s)"
+            leaderboard += f"\n{p['name']}#{p['tag']} - {p['recombobulator']} recombobulator(s)"
 
     if(leaderboard == "Ladder des gigachads:"):
         leaderboard += "\nNone...\nChekko est pas fier...\n"
@@ -106,7 +106,7 @@ def getThreeStarsLeaderboard(jsonProfiles):
     leaderboard = "Ladder des rerollers:"
     for p in sortedProfiles:
         if(p["threeStars"]>0):
-            leaderboard += f"\n{p['name']} - {p['threeStars']} three stars units"
+            leaderboard += f"\n{p['name']}#{p['tag']} - {p['threeStars']} three stars units"
 
     if(leaderboard == "Ladder des rerollers:"):
         leaderboard += "\nNone...\nAppuyez dont sur D siboire...\n"
@@ -126,7 +126,7 @@ def getCurrentSetAugmentsLeaderboard(jsonProfiles):
 
     for p in sortedProfiles:
         if(p["currentSetAugments"]>0):
-            leaderboard += f"\n{p['name']} - {p['currentSetAugments']} SET{currentSet} augment(s)"
+            leaderboard += f"\n{p['name']}#{p['tag']} - {p['currentSetAugments']} SET{currentSet} augment(s)"
 
     if(leaderboard == "Ladder des visionnaires:"):
         leaderboard += "\nNone...\nGuys, the future is now...\n"
