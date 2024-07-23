@@ -28,13 +28,15 @@ def getProfiles():
             data = stats.getPlayerData()
 
             profile = api.getSummonerProfile(puuid)
-            
+
             if(len(profile)>0):
                 jsonProfile = {
                     "name": name,
+                    "tag": tag,
                     "tier": profile[0]['tier'],
-                    "rank": profile[0]['rank'], 
+                    "rank": profile[0]['rank'],
                     "leaguePoints": profile[0]['leaguePoints'],
+                    "gamesPlayed": len(matches),
                     "threeStars": stats.countThreeStarUnits(data),
                     "currentSetAugments": stats.countCurrentSetAugments(data)
                 }
@@ -128,4 +130,15 @@ def getCurrentSetAugmentsLeaderboard(jsonProfiles):
 
     if(leaderboard == "Ladder des visionnaires:"):
         leaderboard += "\nNone...\nGuys, the future is now...\n"
+    return leaderboard
+
+### TFTQC Tag
+def getTagLeaderboard(jsonProfiles):
+    leaderboard = "Liste des sellouts:"
+    for p in jsonProfiles:
+        if(p["tag"]=="TFTQC" and p["gamesPlayed"]>=10):
+            leaderboard += f"\n{p['name']}#{p['tag']}"
+
+    if(leaderboard == "Liste des sellouts:"):
+        leaderboard += "\nNone...\nChekko n'est pas fier...\n"
     return leaderboard
