@@ -197,6 +197,7 @@ pyrightconfig.json
 
 # Project Specific 
 config.json
+players.txt
 
 # For testing purposes
 test.json
