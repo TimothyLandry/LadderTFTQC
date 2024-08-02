@@ -64,8 +64,15 @@ class Stats:
     
     def countCurrentSetAugments(self, data):
         count = 0
+
+        with open(f"config/augments_set{self.currentSet}.txt", "r") as file:
+            augments = []
+            for a in file:
+                a = a.replace('\n','')
+                augments.append(a)
+
         for d in data:
             for a in d["augments"]:
-                if(a.startswith("TFT"+self.currentSet)):
+                if(a in augments):
                     count+=1
         return count
