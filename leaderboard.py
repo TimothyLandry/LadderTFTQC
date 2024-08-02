@@ -4,7 +4,7 @@ import time
 import json
 
 def getProfiles():
-    with open("players.txt", "r") as file:
+    with open("config/players.txt", "r") as file:
         playerList = []
         for p in file:
             p = p.replace('\n','')
