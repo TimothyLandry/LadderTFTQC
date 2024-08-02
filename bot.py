@@ -14,7 +14,7 @@ client = discord.Client(intents=intents)
 
 @client.event
 async def on_ready():
-    logo = open("./logo.txt").read()
+    logo = open("./config/logo.txt").read()
     logo = logo.replace("VERSION_REPLACE", config["version"])
     logo = logo.replace("TIMESTAMP_PLACE", time.strftime("%Y-%m-%d %H:%M:%S"))
 
