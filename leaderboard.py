@@ -10,7 +10,7 @@ def getProfiles():
             p = p.replace('\n','')
             playerList.append(p)
 
-    config = json.load(open("./config.json"))
+    config = json.load(open("./config/config.json"))
     startTime = config["startTime"]
     endTime = config["endTime"]
     
@@ -121,7 +121,7 @@ def getCurrentSetAugmentsLeaderboard(jsonProfiles):
     sortedProfiles = sortByCurrentSetAugments(jsonProfiles)
     leaderboard = "Ladder des visionnaires:"
 
-    config = json.load(open("./config.json"))
+    config = json.load(open("./config/config.json"))
     currentSet = config["currentSet"]
 
     for p in sortedProfiles:

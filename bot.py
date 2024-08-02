@@ -6,7 +6,7 @@ import asyncio
 
 from leaderboard import *
 
-config = json.load(open("./config.json"))
+config = json.load(open("./config/config.json"))
 
 intents = discord.Intents.default()
 intents.message_content = True

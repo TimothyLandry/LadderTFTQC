@@ -194,10 +194,8 @@ pyrightconfig.json
 
 # End of https://www.toptal.com/developers/gitignore/api/python,visualstudiocode
 
-
 # Project Specific 
-config.json
-players.txt
+config/config.json
 
 # For testing purposes
 test.json

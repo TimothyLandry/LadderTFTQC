@@ -4,7 +4,7 @@ from time import sleep
 
 class Api:
     def __init__(self, startTime, endTime):
-        f = open("./config.json")
+        f = open("./config/config.json")
         apiKey = json.load(f)["riotApiKey"]
 
         self.headers =   {

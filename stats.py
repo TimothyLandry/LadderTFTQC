@@ -4,7 +4,7 @@ class Stats:
     def __init__(self, puuid, raw):
         self.puuid = puuid
         self.raw = raw
-        config = json.load(open("./config.json"))
+        config = json.load(open("./config/config.json"))
         self.currentSet = config["currentSet"]
 
     def getPlayerData(self):
