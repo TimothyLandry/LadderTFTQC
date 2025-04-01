@@ -97,29 +97,28 @@ def getThreeStarsLeaderboard(jsonProfiles):
 
 ### TFTQC Tag
 def getTagLeaderboard(jsonProfiles):
-    leaderboard = "Liste des sellouts:"
+    leaderboard = "Tirage: Sellouts"
     for p in jsonProfiles:
         if(p["tag"]=="TFTQC" and p["gamesPlayed"]>=10):
             leaderboard += f"\n{p['name']}#{p['tag']}"
 
-    if(leaderboard == "Liste des sellouts:"):
+    if(leaderboard == "Tirage: Sellouts"):
         leaderboard += "\nNone...\nChekko n'est pas fier...\n"
     return leaderboard
 
 ### April Fools
 def getFishedLeaderboard(jsonProfiles):
-    leaderboard = "Liste des sellouts:"
+    leaderboard = "Tirage: Poissons"
     for p in jsonProfiles:
-
-        fished = False
         with open("config/poissons.txt", "r") as file:
-            for p in file:
-                if p == f"{p['name']}#{p['tag']}":
+            fished = False
+            for n in file:
+                if((n.strip()) == f"{p['name']}#{p['tag']}"):
                     fished = True
 
         if(fished and p["gamesPlayed"]>=10):
             leaderboard += f"\n{p['name']}#{p['tag']}"
 
-    if(leaderboard == "Liste des poissons:"):
+    if(leaderboard == "Tirage: Poissons"):
         leaderboard += "\nNone...\nChekko n'est pas fier...\n"
     return leaderboard
