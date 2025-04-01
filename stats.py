@@ -1,7 +1,11 @@
+import json
+
 class Stats:
     def __init__(self, puuid, raw):
         self.puuid = puuid
         self.raw = raw
+        config = json.load(open("./config/config.json"))
+        self.currentSet = config["currentSet"]
 
     def getPlayerData(self):
         data = []
@@ -56,5 +60,19 @@ class Stats:
             for a in d["augments"]:
                 if(a not in picked):
                     picked.append(a)
-        #return len(picked)
         return picked
+    
+    def countCurrentSetAugments(self, data):
+        count = 0
+
+        with open(f"config/augments_set{self.currentSet}.txt", "r") as file:
+            augments = []
+            for a in file:
+                a = a.replace('\n','')
+                augments.append(a)
+
+        for d in data:
+            for a in d["augments"]:
+                if(a in augments):
+                    count+=1
+        return count

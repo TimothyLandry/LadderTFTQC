@@ -6,7 +6,7 @@ import asyncio
 
 from leaderboard import *
 
-config = json.load(open("./config.json"))
+config = json.load(open("./config/config.json"))
 
 intents = discord.Intents.default()
 intents.message_content = True
@@ -14,7 +14,7 @@ client = discord.Client(intents=intents)
 
 @client.event
 async def on_ready():
-    logo = open("./logo.txt").read()
+    logo = open("./config/logo.txt").read()
     logo = logo.replace("VERSION_REPLACE", config["version"])
     logo = logo.replace("TIMESTAMP_PLACE", time.strftime("%Y-%m-%d %H:%M:%S"))
 
@@ -31,8 +31,9 @@ async def cronLeaderboard():
     profiles = await asyncio.to_thread(getProfiles)
     await channel.send(f"```fix\n{time.strftime('%Y-%m-%d %H:%M:%S')} - {getRankLeaderboard(profiles)}```")
     await channel.send(f"```fix\n{time.strftime('%Y-%m-%d %H:%M:%S')} - {getThreeStarsLeaderboard(profiles)}```")
-    await channel.send(f"```fix\n{time.strftime('%Y-%m-%d %H:%M:%S')} - {getRecombobulatorLeaderboard(profiles)}```")
-    await channel.send(f"```fix\n{time.strftime('%Y-%m-%d %H:%M:%S')} - {getFeatherknightLeaderboard(profiles)}```")
+    await channel.send(f"```fix\n{time.strftime('%Y-%m-%d %H:%M:%S')} - {getCurrentSetAugmentsLeaderboard(profiles)}```")
+    await channel.send(f"```fix\n{time.strftime('%Y-%m-%d %H:%M:%S')} - {getTagLeaderboard(profiles)}```")
+
     print(f"{time.strftime('%Y-%m-%d %H:%M:%S')} update sent.")
 
 client.run(config["discordToken"])

@@ -4,7 +4,7 @@ from time import sleep
 
 class Api:
     def __init__(self, startTime, endTime):
-        f = open("./config.json")
+        f = open("./config/config.json")
         apiKey = json.load(f)["riotApiKey"]
 
         self.headers =   {
@@ -41,7 +41,12 @@ class Api:
         return self.abstractApiCall("americas",f"tft/match/v1/matches/{id}", None)
     
     def getMatches(self, name, tag):
-        puuid = self.getSummonerPuuid(name, tag)
+        try:
+            puuid = self.getSummonerPuuid(name, tag)
+        except:
+            print(f"{name}#{tag} not found")
+            return []
+        
         matchIds = self.getMatchIds(puuid)
         matches = []
         for m in matchIds:
