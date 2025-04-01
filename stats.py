@@ -18,13 +18,6 @@ class Stats:
                 print(i)
         return data
     
-    def countRecombobulator(self, data):
-        count = 0
-        for d in data:
-            if("TFT6_Augment_Recombobulator" in d["augments"]):
-                count+=1
-        return count
-    
     def getMostGoldOnDeath(self, data):
         highest = 0
         for d in data:
@@ -52,27 +45,4 @@ class Stats:
         for d in data:
             if(d["companion"]["species"] == "PetPenguKnight"):
                 count+=1
-        return count
-    
-    def countUniqueAugments(self, data):
-        picked = []
-        for d in data:
-            for a in d["augments"]:
-                if(a not in picked):
-                    picked.append(a)
-        return picked
-    
-    def countCurrentSetAugments(self, data):
-        count = 0
-
-        with open(f"config/augments_set{self.currentSet}.txt", "r") as file:
-            augments = []
-            for a in file:
-                a = a.replace('\n','')
-                augments.append(a)
-
-        for d in data:
-            for a in d["augments"]:
-                if(a in augments):
-                    count+=1
         return count

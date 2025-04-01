@@ -80,22 +80,6 @@ def getRankLeaderboard(jsonProfiles):
         leaderboard += "\nNone...\nPersonne aime le set11...\n"
     return leaderboard
 
-### Recombobulator
-def sortByRecombobulator(jsonProfiles):
-    sortedProfiles = sorted(jsonProfiles, key=lambda k: k['recombobulator'],reverse=True)
-    return sortedProfiles
-
-def getRecombobulatorLeaderboard(jsonProfiles):
-    sortedProfiles = sortByRecombobulator(jsonProfiles)
-    leaderboard = "Ladder des gigachads:"
-    for p in sortedProfiles:
-        if(p["recombobulator"]>0):
-            leaderboard += f"\n{p['name']}#{p['tag']} - {p['recombobulator']} recombobulator(s)"
-
-    if(leaderboard == "Ladder des gigachads:"):
-        leaderboard += "\nNone...\nChekko est pas fier...\n"
-    return leaderboard
-
 ### ThreeStars (rerollers)
 def sortByThreeStars(jsonProfiles):
     sortedProfiles = sorted(jsonProfiles, key=lambda k: k['threeStars'],reverse=True)
@@ -116,21 +100,6 @@ def getThreeStarsLeaderboard(jsonProfiles):
 def sortByCurrentSetAugments(jsonProfiles):
     sortedProfiles = sorted(jsonProfiles, key=lambda k: k['currentSetAugments'],reverse=True)
     return sortedProfiles
-
-def getCurrentSetAugmentsLeaderboard(jsonProfiles):
-    sortedProfiles = sortByCurrentSetAugments(jsonProfiles)
-    leaderboard = "Ladder des visionnaires:"
-
-    config = json.load(open("./config/config.json"))
-    currentSet = config["currentSet"]
-
-    for p in sortedProfiles:
-        if(p["currentSetAugments"]>0):
-            leaderboard += f"\n{p['name']}#{p['tag']} - {p['currentSetAugments']} SET{currentSet} augment(s)"
-
-    if(leaderboard == "Ladder des visionnaires:"):
-        leaderboard += "\nNone...\nGuys, the future is now...\n"
-    return leaderboard
 
 ### TFTQC Tag
 def getTagLeaderboard(jsonProfiles):

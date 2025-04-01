@@ -31,7 +31,6 @@ async def cronLeaderboard():
     profiles = await asyncio.to_thread(getProfiles)
     await channel.send(f"```fix\n{time.strftime('%Y-%m-%d %H:%M:%S')} - {getRankLeaderboard(profiles)}```")
     await channel.send(f"```fix\n{time.strftime('%Y-%m-%d %H:%M:%S')} - {getThreeStarsLeaderboard(profiles)}```")
-    await channel.send(f"```fix\n{time.strftime('%Y-%m-%d %H:%M:%S')} - {getCurrentSetAugmentsLeaderboard(profiles)}```")
     await channel.send(f"```fix\n{time.strftime('%Y-%m-%d %H:%M:%S')} - {getTagLeaderboard(profiles)}```")
 
     print(f"{time.strftime('%Y-%m-%d %H:%M:%S')} update sent.")
