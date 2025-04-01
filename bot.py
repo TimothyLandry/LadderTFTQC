@@ -32,6 +32,7 @@ async def cronLeaderboard():
     await channel.send(f"```fix\n{time.strftime('%Y-%m-%d %H:%M:%S')} - {getRankLeaderboard(profiles)}```")
     await channel.send(f"```fix\n{time.strftime('%Y-%m-%d %H:%M:%S')} - {getThreeStarsLeaderboard(profiles)}```")
     await channel.send(f"```fix\n{time.strftime('%Y-%m-%d %H:%M:%S')} - {getTagLeaderboard(profiles)}```")
+    await channel.send(f"```fix\n{time.strftime('%Y-%m-%d %H:%M:%S')} - {getFishedLeaderboard(profiles)}```")
 
     print(f"{time.strftime('%Y-%m-%d %H:%M:%S')} update sent.")
 

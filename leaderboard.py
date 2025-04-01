@@ -37,8 +37,7 @@ def getProfiles():
                     "rank": profile[0]['rank'],
                     "leaguePoints": profile[0]['leaguePoints'],
                     "gamesPlayed": len(matches),
-                    "threeStars": stats.countThreeStarUnits(data),
-                    "currentSetAugments": stats.countCurrentSetAugments(data)
+                    "threeStars": stats.countThreeStarUnits(data)
                 }
                 output.append(jsonProfile)
     return output
@@ -96,11 +95,6 @@ def getThreeStarsLeaderboard(jsonProfiles):
         leaderboard += "\nNone...\nAppuyez dont sur D siboire...\n"
     return leaderboard
 
-### Current Set Augments
-def sortByCurrentSetAugments(jsonProfiles):
-    sortedProfiles = sorted(jsonProfiles, key=lambda k: k['currentSetAugments'],reverse=True)
-    return sortedProfiles
-
 ### TFTQC Tag
 def getTagLeaderboard(jsonProfiles):
     leaderboard = "Liste des sellouts:"
@@ -109,5 +103,23 @@ def getTagLeaderboard(jsonProfiles):
             leaderboard += f"\n{p['name']}#{p['tag']}"
 
     if(leaderboard == "Liste des sellouts:"):
+        leaderboard += "\nNone...\nChekko n'est pas fier...\n"
+    return leaderboard
+
+### April Fools
+def getFishedLeaderboard(jsonProfiles):
+    leaderboard = "Liste des sellouts:"
+    for p in jsonProfiles:
+
+        fished = False
+        with open("config/poissons.txt", "r") as file:
+            for p in file:
+                if p == f"{p['name']}#{p['tag']}":
+                    fished = True
+
+        if(fished and p["gamesPlayed"]>=10):
+            leaderboard += f"\n{p['name']}#{p['tag']}"
+
+    if(leaderboard == "Liste des poissons:"):
         leaderboard += "\nNone...\nChekko n'est pas fier...\n"
     return leaderboard
